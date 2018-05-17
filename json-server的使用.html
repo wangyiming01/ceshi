@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+		<script src="axios.js"></script>
+		<style>
+			.slh{
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" placeholder="用户名字" v-model="companyName"/><br/>
+			<input type="text"  placeholder="描述" v-model="companydesc"/><br/>
+			<input type="button" value="添加" @click="add"/><br/>
+			
+			<ul>
+				<li v-for="item in lists">
+					<ol>
+						<li>{{item.id}}</li>
+						<li>{{item.name}}</li>
+						<li class='slh'>{{item.description}}</li>
+						<li @click="del(item.id)">删除</li>
+						<input type="text" v-model="currentInfo" v-show="toshow==item.id" @keyup.enter="sureModify(item.id)"/>
+						<li @click="modify(item.id)">修改</li>
+					</ol>
+					
+				</li>
+			</ul>
+		</div>
+		<script>
+			var app=new Vue({
+				el:"#box",
+				data:{
+					lists:[],
+					companyName:"",
+					companydesc:"",
+					toshow:"",
+					currentInfo:""
+				},
+				created(){
+					axios.get("http://localhost:3000/companies",{params:{id_lte:3}}).then((res)=>{
+						console.log(res)
+						this.lists=res.data;
+					})
+				},
+				methods:{
+					getMydata(){
+						axios.get("http://localhost:3000/companies",{
+							params:{id_gte:3}
+						}).then((res)=>{
+							console.log(res)
+							this.lists=res.data
+						})
+					},
+					add(){
+						axios.post("http://localhost:3000/companies",{name:this.companyName,
+						description:this.companydesc
+						
+						},{headers:{
+							"Content-Type":"application/json"
+						}}).then((res)=>{
+							console.log(res)
+							this.getMydata()
+						})
+					},
+					del(id){
+						if(confirm("是否要删除？")){
+							
+							axios.delete("http://localhost:3000/companies/"+id).then((res)=>{
+							console.log(res)
+							this.getMydata()
+						})
+							
+						}	
+					},
+					modify(id){//修改要先查找
+							this.toshow=id
+							axios.get("http://localhost:3000/companies/"+id).then((res)=>{
+							this.currentInfo = res.data.name
+						})	
+					},
+					sureModify(id){//鼠标弹起确定了才是修改
+						axios.patch("http://localhost:3000/companies/"+id,{
+							name:this.currentInfo		
+						},{headers:{
+							"Content-Type":"application/json"
+						}}).then((res)=>{
+							window.location.reload()
+							this.getMydata()
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

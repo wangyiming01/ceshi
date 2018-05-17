@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.js"></script>
+		<style>
+			#smallbox{
+				width: 300px;
+				height: 300px;
+				background:#000000;
+			}
+			.v-enter{
+				opacity: 0;
+			}
+			.v-enter-to{
+				opacity: 1;
+			}
+			.v-leave{
+				opacity: 1;
+			}
+			.v-enter-active,.v-leave-active{
+				transition:all 1s;
+			}
+		 	.v-leave-to{
+		 	opacity: 0;
+		 }
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<transition>
+			<div id="smallbox" v-show="seen"></div>
+			</transition>
+			<!--可以再双引号内直接写函数表达式的-->
+			<button @click="seen=!seen">切换</button>
+		</div>
+		<script>
+			var app=new Vue({
+				el:"#box",
+				data:{
+					seen:true
+				}
+			})
+		</script>
+	</body>
+</html>

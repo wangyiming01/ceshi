@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<component :is="comname" @go="go"></component>
+
+	</div>
+
+	<script>
+		var login = {
+			data(){
+				return {
+					username:'',
+					password:'',
+					info:''
+				}
+			},
+			template:`<div><form>
+				<input type="text" v-model="username" /><br />
+				<input type="text" v-model="password" /><br />
+				<input type="submit" value="login" @click="login" />
+
+			</form>
+			<p>{{info}}</p>
+			<p>如何没有用户名请<a href="#" @click="goreg">注册</a></p></div>`,
+			methods:{
+				goreg(){
+					this.$emit("go","reg");
+					return false;
+				},
+				login(){
+					if(this.username===localStorage.getItem("username") 
+						&& this.password === localStorage.getItem("password") )
+					{
+						this.info="login ok";
+					}
+					else{
+						this.info="login fail"
+					}
+				}
+			}
+		}
+
+		var reg = {
+			data(){
+				return {
+					username:'',
+					password:'',
+					confirmPassword:'',
+					show:true
+				}
+			},
+			template:`<div><form v-if="show">
+				<input type="text" v-model="username" /><br />
+				<input type="password" v-model="password" /><br />
+				<input type="password" v-model="confirmPassword" /><br />
+				<input type="submit" value="reg" @click="reg" />
+			</form>
+			<div v-else>
+				注册成功,请<a  href="#" @click="gologin">登录</a>
+			</div>
+			</div>
+			`,
+			methods:{
+				reg(){
+					if(this.password !==this.confirmPassword){
+						alert("两次密码不一致");
+						return false;
+
+					}
+					localStorage.setItem("username",this.username);
+					localStorage.setItem("password",this.password);
+					this.show=false;
+				},
+				gologin(){
+					this.$emit("go","login");
+				}
+
+			}
+		}
+
+		new Vue({
+			el:"#box",
+			data:{
+				comname:'login'
+			},
+			components:{
+				login,reg
+			},
+			methods:{
+				go(v){
+				   this.comname = v;
+
+				}
+			}
+
+		})
+	</script>
+</body>
+</html>
