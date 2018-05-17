@@ -1,0 +1,90 @@
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, input, h6, form, fieldset, legend, img, div { box-sizing: border-box; margin:0; padding:0;}
+
+fieldset, img { border:none; }
+
+img{vertical-align: top;}
+
+em,i,strong,b{ font-style:normal; font-weight:normal; }
+
+ul, ol{ list-style:none; } 
+
+ul, li{list-style:none;} 
+
+a {text-decoration:none;}
+
+.ind{text-indent: 2em;}
+
+.noborder{border: none;}
+
+.nobg{background:none;}
+
+.floatL{float: left;}
+
+.floatR{float: right;}
+html,body{
+	width:100%;
+	height:100%
+}
+html{
+	font-size:46.87px;
+}
+header{
+	width: 100%;
+	height:2.68rem;
+	background:#148ad2;
+}
+header i{
+	display:block;
+	width:32%;
+	height:2.68rem;
+	float: left;
+}
+header i img{
+	margin-top:0.35rem;
+}
+banner{
+	width:100%;
+	height:8.7rem;
+}
+banner img{
+	width:100%;
+}
+
+.content {
+	width:100%;
+	height:16.42rem;
+	
+}
+.content ul li{
+	padding-top:0.8rem;
+	padding-left:1rem;
+	width: 100%;
+	height: 5.3rem;
+	border-bottom:0.125rem solid #f2f2f2;
+	font-size:0.65rem !important;
+	color:#323232;
+	line-height:1rem;
+	
+}
+.content ul li p{
+	margin-top:1rem;
+}
+.content ul p span{
+	font-size:0.3rem;
+	color:#aaaaaa;
+	margin-right:0.6rem;
+	margin-left:0.25rem;
+}
+.content ul p img{
+	width:1.2rem;
+	height:1.2rem;
+}
+.content ul p time{
+	font-size:0.3rem;
+	color:#aaaaaa;
+	margin-right:0.6rem;
+}
+footer{
+	width: 100%;
+	height:0.8rem;
+}
