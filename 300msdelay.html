@@ -15,10 +15,10 @@
 <body>
     <div id="box"></div>
     <script>
-        var box=document.getElementById("box")
-        box.addEventListener("touchstart",function(e){
-            console.log("aaaa")
-           console.log(e.target.touches) 
+        var mybox=document.getElementById("box")
+        mybox.addEventListener("touchstart",function(e){
+        console.log("aaaa")
+           console.log(e.touches.length) 
         })
     </script>
 </body>
